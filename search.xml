@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>21.合并两个有序链表</title>
+    <url>/2020/03/21/21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h4 id="方法一：递归"><a href="#方法一：递归" class="headerlink" title="方法一：递归"></a>方法一：递归</h4><p><strong>思路：</strong> 比较两链表当前值的大小，在小的L之后递归调用本函数。<br><strong>代码：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123;</span><br><span class="line">        if(l1&#x3D;&#x3D;NULL)return l2;</span><br><span class="line">        else if(l2&#x3D;&#x3D;NULL)return l1;</span><br><span class="line">        else if(l1-&gt;val&lt;l2-&gt;val)&#123;</span><br><span class="line">            l1-&gt;next &#x3D; mergeTwoLists(l1-&gt;next,l2);</span><br><span class="line">            return l1;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            l2-&gt;next &#x3D; mergeTwoLists(l1,l2-&gt;next);</span><br><span class="line">            return l2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二：迭代"><a href="#方法二：迭代" class="headerlink" title="方法二：迭代"></a>方法二：迭代</h4><p><strong>思路：</strong> 创建第三个表，指针遍历把每个小的值插入，直到L的一方为空，则把另一方全部插入。<br><strong>代码：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123;</span><br><span class="line">        ListNode* p&#x3D;new ListNode(0);</span><br><span class="line">        ListNode* q&#x3D;p;</span><br><span class="line">        if(l1&#x3D;&#x3D;NULL)return l2;</span><br><span class="line">        else if(l2&#x3D;&#x3D;NULL)return l1;</span><br><span class="line">        while(l1!&#x3D;NULL &amp;&amp; l2!&#x3D;NULL)&#123;</span><br><span class="line">            if(l1-&gt;val&lt;&#x3D;l2-&gt;val)&#123;</span><br><span class="line">                p-&gt;next&#x3D;l1;</span><br><span class="line">                l1&#x3D;l1-&gt;next;</span><br><span class="line">                p&#x3D;p-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                p-&gt;next&#x3D;l2;</span><br><span class="line">                l2&#x3D;l2-&gt;next;</span><br><span class="line">                p&#x3D;p-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    p-&gt;next &#x3D; l1&#x3D;&#x3D;NULL?l2:l1;</span><br><span class="line">    return q-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>递归</tag>
+        <tag>链表</tag>
+        <tag>迭代</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello world</title>
     <url>/2020/03/21/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -26,7 +43,7 @@
   </entry>
   <entry>
     <title>20.有效的括号</title>
-    <url>/2020/03/20/20.%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/</url>
+    <url>/2020/03/20/20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/</url>
     <content><![CDATA[<h4 id="方法一：递归"><a href="#方法一：递归" class="headerlink" title="方法一：递归"></a><strong>方法一：递归</strong></h4><hr>
 <p><strong>思路：</strong> 递归匹配串中是否有(),[],{}，有则全替换成空””，所有替换后返回最终的s是否为空。<br><strong>代码：</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    &#x2F;&#x2F;unordered_map&lt;char,char&gt; hash&#x3D;&#123;&#123;&#39;(&#39;,&#39;)&#39;&#125;,&#123;&#39;&#123;&#39;,&#39;&#125;&#39;&#125;,&#123;&#39;[&#39;,&#39;]&#39;&#125;&#125;;</span><br><span class="line">    bool isValid(string s) &#123;</span><br><span class="line">        while(strstr(s.c_str(),&quot;()&quot;) || strstr(s.c_str(),&quot;[]&quot;) || strstr(s.c_str(),&quot;&#123;&#125;&quot;))&#123;</span><br><span class="line">        if(strstr(s.c_str(),&quot;()&quot;))</span><br><span class="line">            return isValid(s.replace(s.find(&quot;()&quot;),2,&quot;&quot;));</span><br><span class="line">        else if(strstr(s.c_str(),&quot;[]&quot;))</span><br><span class="line">            return isValid(s.replace(s.find(&quot;[]&quot;),2,&quot;&quot;));</span><br><span class="line">        else if(strstr(s.c_str(),&quot;&#123;&#125;&quot;))</span><br><span class="line">            return isValid(s.replace(s.find(&quot;&#123;&#125;&quot;),2,&quot;&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">        return s&#x3D;&#x3D;&quot;&quot;; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
