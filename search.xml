@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>1</title>
+    <url>/2020/03/25/1/</url>
+    <content><![CDATA[<p><img src="/.com//3.jpg" alt="tu"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>hexo写博客如何插入图片</title>
+    <url>/2020/03/25/hexo%E5%86%99%E5%8D%9A%E5%AE%A2%E5%A6%82%E4%BD%95%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<ol>
+<li><p>把主页配置文件_config.yml里的post_asset_folder:这个选项设置为true</p>
+</li>
+<li><p>安装一个图片路径转换的插件，插件名字是hexo-asset-image，执行命令：<br><code>npm install hexo-asset-image --save</code></p>
+</li>
+<li><p>安装完成后，再运行hexo n “title” 来生成md博文时，/source/_posts文件夹内除了title.md文件还有一个同名的文件夹。</p>
+</li>
+<li><p>在title.md中引入图片时，先把图片复制到title这个文件夹中，然后只需要在title.md中按照markdown的格式引入图片：<br><code>![图片描述](title/1.jpg)</code></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>21.合并两个有序链表</title>
     <url>/2020/03/21/21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[<h4 id="方法一：递归"><a href="#方法一：递归" class="headerlink" title="方法一：递归"></a>方法一：递归</h4><p><strong>思路：</strong> 比较两链表当前值的大小，在小的L之后递归调用本函数。<br><strong>代码：</strong></p>
