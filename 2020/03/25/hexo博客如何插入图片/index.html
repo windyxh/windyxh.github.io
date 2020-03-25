@@ -5,13 +5,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>1 - Xuhui</title>
+    <title>hexo博客如何插入图片 - Xuhui</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="
-"> 
+    <meta name="description" content="&amp;#x6B65;&amp;#x9AA4;&amp;#xFF1A;
+
+&amp;#x628A;&amp;#x4E3B;&amp;#x9875;&amp;#x914D;&amp;#x7F6E;&amp;#x6587;&amp;#x4EF6;_config.yml&amp;#x91C,"> 
     <meta name="author" content="Xuhui"> 
     <link rel="alternative" href="atom.xml" title="Xuhui" type="application/atom+xml"> 
     <link rel="icon" href="/img/logo.jpg"> 
@@ -41,7 +42,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
     <div title="播放/暂停" class="iconfont icon-play"></div>
-    <h3 class="subtitle">1</h3>
+    <h3 class="subtitle">hexo博客如何插入图片</h3>
     <div class="social">
         <div>
             <div class="share">
@@ -56,14 +57,37 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">1</h1>
+        <h1 class="title">hexo博客如何插入图片</h1>
         <div class="stuff">
             <span>三月 25, 2020</span>
             
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
 
         </div>
         <div class="content markdown">
-            <p><img src="/.com//3.jpg" alt="tu"></p>
+            <h4 id="&#x6B65;&#x9AA4;&#xFF1A;"><a href="#&#x6B65;&#x9AA4;&#xFF1A;" class="headerlink" title="&#x6B65;&#x9AA4;&#xFF1A;"></a>&#x6B65;&#x9AA4;&#xFF1A;</h4><hr>
+<ol>
+<li><p>&#x628A;&#x4E3B;&#x9875;&#x914D;&#x7F6E;&#x6587;&#x4EF6;_config.yml&#x91CC;&#x7684;post_asset_folder:&#x8FD9;&#x4E2A;&#x9009;&#x9879;&#x8BBE;&#x7F6E;&#x4E3A;true</p>
+</li>
+<li><p>&#x5B89;&#x88C5;&#x4E00;&#x4E2A;&#x56FE;&#x7247;&#x8DEF;&#x5F84;&#x8F6C;&#x6362;&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x63D2;&#x4EF6;&#x540D;&#x5B57;&#x662F;hexo-asset-image&#xFF0C;&#x6267;&#x884C;&#x547D;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image@0.0.2 --save</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<blockquote>
+<p>&#xFF08;<strong>&#x6CE8;&#x610F;&#xFF1A;</strong> &#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x6700;&#x65B0;&#x7248;&#x672C;&#x662F;0.03&#xFF0C;&#x4F46;&#x662F;&#x6709;bug&#xFF0C;<strong>&#x6240;&#x4EE5;&#x4E00;&#x5B9A;&#x8981;&#x5B89;&#x88C5;0.02&#x7248;&#x672C;</strong>&#x3002;&#xFF09;</p>
+</blockquote>
+<ol start="3">
+<li><p>&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x518D;&#x8FD0;&#x884C;hexo n &#x201C;title&#x201D; &#x6765;&#x751F;&#x6210;md&#x535A;&#x6587;&#x65F6;&#xFF0C;/source/_posts&#x6587;&#x4EF6;&#x5939;&#x5185;&#x9664;&#x4E86;title.md&#x6587;&#x4EF6;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x540C;&#x540D;&#x7684;title&#x6587;&#x4EF6;&#x5939;&#x7528;&#x6765;&#x653E;&#x56FE;&#x7247;&#x3002;</p>
+</li>
+<li><p>&#x5728;title.md&#x4E2D;&#x5F15;&#x5165;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x5148;&#x628A;&#x56FE;&#x7247;&#x590D;&#x5236;&#x5230;title&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5939;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x53EA;&#x9700;&#x8981;&#x5728;title.md&#x4E2D;&#x6309;&#x7167;markdown&#x7684;&#x8BED;&#x6CD5;&#x683C;&#x5F0F;&#x5F15;&#x5165;&#x56FE;&#x7247;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![&#x56FE;&#x7247;&#x63CF;&#x8FF0;](title/1.jpg)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>&#x82E5;&#x8981;&#x4F7F;&#x7528;0.03&#x7248;&#x672C;&#xFF0C;bug&#x4FEE;&#x6539;&#x53C2;&#x8003;&#xFF1A;<br><a href="https://blog.xiaolin.mcxhz.cn/2020/03/15/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/#First" target="_blank" rel="noopener">&#x56FE;&#x7247;&#x4E0D;&#x80FD;&#x52A0;&#x8F7D;&#x539F;&#x56E0;</a><br><a href="https://segmentfault.com/q/1010000020310187" target="_blank" rel="noopener">hexo &#x56FE;&#x7247;&#x8DEF;&#x5F84;&#x9519;&#x8BEF;/.com//</a></p>
+<p><strong>&#x63D2;&#x5165;&#x793A;&#x4F8B;&#xFF1A;</strong><br><img src="/2020/03/25/hexo%E5%8D%9A%E5%AE%A2%E5%A6%82%E4%BD%95%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/13.jpg" alt="&#x63D2;&#x5165;&#x7684;&#x7B2C;&#x4E00;&#x5F20;&#x56FE;&#x7247;"></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -97,10 +121,6 @@
 
 
     </div>
-    
-        <div class='side'>
-				
-        </div>
     
 </div>
 
