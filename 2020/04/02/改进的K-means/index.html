@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>改进的K-means - Xuhui</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="K-means++&amp;#xFF08;&amp;#x6539;&amp;#x8FDB;&amp;#x7684;k-means&amp;#xFF09;
+&amp;#x601D;&amp;#x60F3;&amp;#xFF1A;&amp;#x7531;&amp;#x4E8E;K-,"> 
+    <meta name="author" content="Xuhui"> 
+    <link rel="alternative" href="atom.xml" title="Xuhui" type="application/atom+xml"> 
+    <link rel="icon" href="/img/logo.jpg"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Xuhui</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">改进的K-means</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">改进的K-means</h1>
+        <div class="stuff">
+            <span>四月 02, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/K-means/" rel="tag">K-means</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%97%A0%E7%9B%91%E7%9D%A3/" rel="tag">无监督</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E8%81%9A%E7%B1%BB/" rel="tag">聚类</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h4 id="K-means-&#xFF08;&#x6539;&#x8FDB;&#x7684;k-means&#xFF09;"><a href="#K-means-&#xFF08;&#x6539;&#x8FDB;&#x7684;k-means&#xFF09;" class="headerlink" title="K-means++&#xFF08;&#x6539;&#x8FDB;&#x7684;k-means&#xFF09;"></a>K-means++&#xFF08;&#x6539;&#x8FDB;&#x7684;k-means&#xFF09;</h4><hr>
+<h5 id="&#x601D;&#x60F3;&#xFF1A;"><a href="#&#x601D;&#x60F3;&#xFF1A;" class="headerlink" title="&#x601D;&#x60F3;&#xFF1A;"></a>&#x601D;&#x60F3;&#xFF1A;</h5><p>&#x7531;&#x4E8E;K-means&#x7B97;&#x6CD5;&#x7684;&#x5206;&#x7C7B;&#x7ED3;&#x679C;&#x4F1A;&#x53D7;&#x5230;&#x521D;&#x59CB;K&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#x7684;&#x9009;&#x53D6;&#x800C;&#x6709;&#x6240;&#x533A;&#x522B;&#xFF08;&#x4F1A;&#x53D7;&#x79BB;&#x7FA4;&#x70B9;&#x6216;&#x8005;&#x9009;&#x7684;&#x70B9;&#x90FD;&#x5728;&#x540C;&#x4E00;&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x7684;&#x5F71;&#x54CD;&#xFF09;&#xFF0C;K-means++&#x5BF9;&#x521D;&#x59CB;&#x70B9;&#x7684;&#x9009;&#x62E9;&#x6709;&#x6539;&#x8FDB;&#xFF0C;&#x5176;&#x4ED6;&#x6B65;&#x9AA4;&#x90FD;&#x4E00;&#x6837;&#x3002;&#x521D;&#x59CB;&#x8D28;&#x5FC3;&#x9009;&#x53D6;&#x7684;&#x57FA;&#x672C;&#x601D;&#x8DEF;&#x5C31;&#x662F;&#xFF0C;&#x521D;&#x59CB;&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x4E92;&#x8DDD;&#x79BB;&#x8981;&#x5C3D;&#x53EF;&#x80FD;&#x7684;&#x8FDC;&#x3002;</p>
+<h5 id="&#x7B97;&#x6CD5;&#x6B65;&#x9AA4;&#xFF1A;"><a href="#&#x7B97;&#x6CD5;&#x6B65;&#x9AA4;&#xFF1A;" class="headerlink" title="&#x7B97;&#x6CD5;&#x6B65;&#x9AA4;&#xFF1A;"></a>&#x7B97;&#x6CD5;&#x6B65;&#x9AA4;&#xFF1A;</h5><p>&#x6B65;&#x9AA4;&#x4E00;&#xFF1A;</p>
+<ul>
+<li>&#x968F;&#x673A;&#x9009;&#x53D6;&#x4E00;&#x4E2A;&#x6837;&#x672C;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;c1&#xFF1B;</li>
+</ul>
+<p>&#x6B65;&#x9AA4;&#x4E8C;&#xFF1A;</p>
+<ul>
+<li>&#x8BA1;&#x7B97;&#x6BCF;&#x4E2A;&#x6837;&#x672C;&#x4E0E;&#x5F53;&#x524D;&#x5DF2;&#x6709;&#x7C7B;&#x805A;&#x4E2D;&#x5FC3;&#x6700;&#x77ED;&#x8DDD;&#x79BB;D(x)&#xFF08;&#x5373;&#x4E0E;&#x6700;&#x8FD1;&#x4E00;&#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x8DDD;&#x79BB;&#xFF09;&#xFF1B;</li>
+<li>D(x)&#x8D8A;&#x5927;&#xFF0C;&#x8868;&#x793A;&#x88AB;&#x9009;&#x53D6;&#x4F5C;&#x4E3A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x6982;&#x7387;&#x8F83;&#x5927;&#xFF1B;</li>
+<li>&#x6700;&#x540E;&#xFF0C;&#x7528;&#x8F6E;&#x76D8;&#x6CD5;&#x9009;&#x51FA;&#x4E0B;&#x4E00;&#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#xFF1B;</li>
+</ul>
+<p>&#x6B65;&#x9AA4;&#x4E09;&#xFF1A;</p>
+<ul>
+<li>&#x91CD;&#x590D;&#x6B65;&#x9AA4;&#x4E8C;&#xFF0C;&#x76F4;&#x5230;&#x9009;&#x51FA; k &#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;&#x6807;&#x51C6;&#x7684; k-means &#x7B97;&#x6CD5;&#x3002;</li>
+</ul>
+<h5 id="&#x5982;&#x4F55;&#x5C06;D-x-&#x53CD;&#x6620;&#x5230;&#x70B9;&#x88AB;&#x9009;&#x62E9;&#x7684;&#x6982;&#x7387;&#x4E0A;&#xFF1F;"><a href="#&#x5982;&#x4F55;&#x5C06;D-x-&#x53CD;&#x6620;&#x5230;&#x70B9;&#x88AB;&#x9009;&#x62E9;&#x7684;&#x6982;&#x7387;&#x4E0A;&#xFF1F;" class="headerlink" title="&#x5982;&#x4F55;&#x5C06;D(x)&#x53CD;&#x6620;&#x5230;&#x70B9;&#x88AB;&#x9009;&#x62E9;&#x7684;&#x6982;&#x7387;&#x4E0A;&#xFF1F;"></a>&#x5982;&#x4F55;&#x5C06;D(x)&#x53CD;&#x6620;&#x5230;&#x70B9;&#x88AB;&#x9009;&#x62E9;&#x7684;&#x6982;&#x7387;&#x4E0A;&#xFF1F;</h5><ul>
+<li>&#x5148;&#x4ECE;&#x6211;&#x4EEC;&#x7684;&#x6570;&#x636E;&#x5E93;&#x968F;&#x673A;&#x6311;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x70B9;&#x5F53;&#x201C;&#x79CD;&#x5B50;&#x70B9;&#x201D;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x70B9;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x8BA1;&#x7B97;&#x5176;&#x548C;&#x6700;&#x8FD1;&#x7684;&#x4E00;&#x4E2A;&#x201C;&#x79CD;&#x5B50;&#x70B9;&#x201D;&#x7684;&#x8DDD;&#x79BB;D(x)&#x5E76;&#x4FDD;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x91CC;&#xFF0C;&#x7136;&#x540E;&#x628A;&#x8FD9;&#x4E9B;&#x8DDD;&#x79BB;&#x52A0;&#x8D77;&#x6765;&#x5F97;&#x5230;Sum(D(x))&#x3002;&#x7136;&#x540E;&#xFF0C;&#x518D;&#x53D6;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x503C;&#xFF0C;&#x7528;&#x6743;&#x91CD;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x53D6;&#x8BA1;&#x7B97;&#x4E0B;&#x4E00;&#x4E2A;&#x201C;&#x79CD;&#x5B50;&#x70B9;&#x201D;&#x3002;</li>
+<li>&#x8FD9;&#x4E2A;&#x7B97;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x662F;&#xFF0C;&#x5148;&#x53D6;&#x4E00;&#x4E2A;&#x80FD;&#x843D;&#x5728;Sum(D(x))&#x4E2D;&#x7684;&#x968F;&#x673A;&#x503C;Random&#xFF08;&#x6570;&#x503C;&#x8303;&#x56F4;&#x5728;0&#x5230;Sum&#x4E4B;&#x95F4;&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x7528;Random -= D(x)&#xFF0C;&#x76F4;&#x5230;&#x5176;&lt;=0&#xFF0C;&#x6B64;&#x65F6;&#x7684;&#x70B9;&#x5C31;&#x662F;&#x4E0B;&#x4E00;&#x4E2A;&#x201C;&#x79CD;&#x5B50;&#x70B9;&#x201D;&#x3002;&#x91CD;&#x590D;2&#x548C;3&#x76F4;&#x5230;k&#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x88AB;&#x9009;&#x51FA;&#x6765;&#x3002;</li>
+<li>&#x8FD9;&#x91CC;&#x8F6E;&#x76D8;&#x8D4C;Random&#x7684;&#x597D;&#x5904;&#x662F;&#xFF0C;&#x56E0;&#x4E3A;D(x)&#x8D8A;&#x5927;&#x5219;&#x88AB;&#x9009;&#x53D6;&#x4F5C;&#x4E3A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x6982;&#x7387;&#x8F83;&#x5927;&#xFF0C;&#x4F46;&#x4E0D;&#x4E00;&#x5B9A;&#x4F1A;&#x9009;&#x5230;&#x6700;&#x8FDC;&#x8DDD;&#x79BB;&#x7684;&#x79BB;&#x7FA4;&#x70B9;&#xFF0C;&#x8F6E;&#x76D8;&#x8D4C;&#x53EF;&#x4EE5;&#x964D;&#x4F4E;&#x521A;&#x597D;&#x9009;&#x5230;&#x79BB;&#x7FA4;&#x70B9;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x6BD5;&#x7ADF;&#x79BB;&#x7FA4;&#x70B9;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x70B9;&#xFF0C;&#x800C;&#x53EF;&#x80FD;&#x4E00;&#x7FA4;&#x4E5F;&#x8F83;&#x8FDC;&#x7684;&#x4F46;&#x8FD8;&#x672A;&#x5206;&#x7C7B;&#x7684;&#x70B9;&#x96C6;&#x4E2D;&#x88AB;&#x9009;&#x4E2D;&#x51FA;&#x4E00;&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#x7684;&#x6982;&#x7387;&#x8FDC;&#x6BD4;&#x8FD9;&#x4E00;&#x4E2A;&#x79BB;&#x7FA4;&#x70B9;&#x5927;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x8D8A;&#x662F;&#x8D8A;&#x8FDC;&#x7684;&#x805A;&#x96C6;&#x7684;&#x70B9;&#x96C6;&#xFF0C;&#x88AB;&#x9009;&#x4E2D;&#x51FA;&#x4E00;&#x4E2A;&#x70B9;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#x7684;&#x6982;&#x7387;&#x8D8A;&#x5927;&#x3002;</li>
+</ul>
+<h5 id="&#x9009;&#x521D;&#x59CB;K&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#x4EE3;&#x7801;&#xFF1A;"><a href="#&#x9009;&#x521D;&#x59CB;K&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#x4EE3;&#x7801;&#xFF1A;" class="headerlink" title="&#x9009;&#x521D;&#x59CB;K&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#x4EE3;&#x7801;&#xFF1A;"></a>&#x9009;&#x521D;&#x59CB;K&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#x4EE3;&#x7801;&#xFF1A;</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"># coding: utf-8</span><br><span class="line">import math</span><br><span class="line">import random</span><br><span class="line">from sklearn import datasets</span><br><span class="line"></span><br><span class="line">def euler_distance(point1: list, point2: list) -&gt; float:</span><br><span class="line">    #&#x8BA1;&#x7B97;&#x4E24;&#x70B9;&#x4E4B;&#x95F4;&#x7684;&#x6B27;&#x62C9;&#x8DDD;&#x79BB;&#xFF0C;&#x652F;&#x6301;&#x591A;&#x7EF4;</span><br><span class="line">    distance = 0.0</span><br><span class="line">    for a, b in zip(point1, point2):</span><br><span class="line">        distance += math.pow(a - b, 2)</span><br><span class="line">    return math.sqrt(distance)</span><br><span class="line"></span><br><span class="line">def get_closest_dist(point, centroids):</span><br><span class="line">    min_dist = math.inf  # &#x521D;&#x59CB;&#x8BBE;&#x4E3A;&#x65E0;&#x7A77;&#x5927;</span><br><span class="line">    for i, centroid in enumerate(centroids):</span><br><span class="line">        dist = euler_distance(centroid, point)</span><br><span class="line">        if dist &lt; min_dist:</span><br><span class="line">            min_dist = dist</span><br><span class="line">    return min_dist</span><br><span class="line"></span><br><span class="line">def kpp_centers(data_set: list, k: int) -&gt; list:</span><br><span class="line">    #&#x4ECE;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x8FD4;&#x56DE; k &#x4E2A;&#x5BF9;&#x8C61;&#x53EF;&#x4F5C;&#x4E3A;&#x8D28;&#x5FC3;</span><br><span class="line">    cluster_centers = []</span><br><span class="line">    data_set_first=random.choice(data_set)</span><br><span class="line">    print(data_set_first)</span><br><span class="line">    cluster_centers.append(data_set_first)</span><br><span class="line">    </span><br><span class="line">    d = [0 for _ in range(len(data_set))]</span><br><span class="line">    for _ in range(1, k):</span><br><span class="line">        total = 0.0</span><br><span class="line">        for i, point in enumerate(data_set):</span><br><span class="line">            d[i] = get_closest_dist(point, cluster_centers) # &#x4E0E;&#x6700;&#x8FD1;&#x4E00;&#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x8DDD;&#x79BB;</span><br><span class="line">            total += d[i]               #&#x8BA1;&#x7B97;&#x6240;&#x6709;&#x70B9;&#x7684;&#x4E0E;&#x81EA;&#x5DF1;&#x7684;&#x6700;&#x8FD1;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x7684;&#x8DDD;&#x79BB;&#x7684;&#x603B;&#x548C;</span><br><span class="line">        total *= random.random()      #&#x8F6E;&#x76D8;&#x8D4C;&#x9009;&#x62E9;&#x8DDD;&#x79BB;&#xFF0C;&#x8DDD;&#x79BB;&#x8D8A;&#x8FDC;&#x7684;&#x90A3;&#x4E48;&#x88AB;&#x9009;&#x4E2D;&#x6982;&#x7387;&#x8D8A;&#x5927;&#xFF0C;total&#x4E5F;&#x4F1A;&#x8D8A;&#x5927;&#xFF0C;&#x88AB;&#x9009;&#x4E2D;&#x7684;&#x4E5F;&#x4F1A;&#x8F83;&#x8FDC;</span><br><span class="line">        for i, di in enumerate(d): # &#x8F6E;&#x76D8;&#x6CD5;&#x9009;&#x51FA;&#x4E0B;&#x4E00;&#x4E2A;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#xFF1B;</span><br><span class="line">            total -= di</span><br><span class="line">            if total &gt; 0:</span><br><span class="line">                continue</span><br><span class="line">            cluster_centers.append(data_set[i])</span><br><span class="line">            print(data_set[i])</span><br><span class="line">            break</span><br><span class="line">    return cluster_centers</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    iris = datasets.load_iris()</span><br><span class="line">    print(kpp_centers(iris.data, 4))</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF08;4&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#xFF09;&#xFF1A;<br><img src="/2020/04/02/%E6%94%B9%E8%BF%9B%E7%9A%84K-means/1.png" alt></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=1384026889.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://music.163.com/song/media/outer/url?id=1341912654.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci='7d6a5a19e87fc16b2000'
+        data-cs='24053baf541ca1615e037a8b6f10e90728e944fd'
+        data-r='windyxh.github.io'
+        data-o='windyxh'
+        data-a='windyxh'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
