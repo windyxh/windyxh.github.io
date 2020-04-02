@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>分类问题为什么不用MSE，而用交叉熵 - Xuhui</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="&amp;#x5206;&amp;#x7C7B;&amp;#x95EE;&amp;#x9898;&amp;#x4E3A;&amp;#x4EC0;&amp;#x4E48;&amp;#x4E0D;&amp;#x7528;MSE&amp;#xFF0C;&amp;#x800C;&amp;#x7528;,"> 
+    <meta name="author" content="Xuhui"> 
+    <link rel="alternative" href="atom.xml" title="Xuhui" type="application/atom+xml"> 
+    <link rel="icon" href="/img/logo.jpg"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Xuhui</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">分类问题为什么不用MSE，而用交叉熵</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">分类问题为什么不用MSE，而用交叉熵</h1>
+        <div class="stuff">
+            <span>四月 02, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/MSE/" rel="tag">MSE</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E4%BA%A4%E5%8F%89%E7%86%B5/" rel="tag">交叉熵</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h4 id="&#x5206;&#x7C7B;&#x95EE;&#x9898;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x7528;MSE&#xFF0C;&#x800C;&#x7528;&#x4EA4;&#x53C9;&#x71B5;&#xFF1F;"><a href="#&#x5206;&#x7C7B;&#x95EE;&#x9898;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x7528;MSE&#xFF0C;&#x800C;&#x7528;&#x4EA4;&#x53C9;&#x71B5;&#xFF1F;" class="headerlink" title="&#x5206;&#x7C7B;&#x95EE;&#x9898;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x7528;MSE&#xFF0C;&#x800C;&#x7528;&#x4EA4;&#x53C9;&#x71B5;&#xFF1F;"></a>&#x5206;&#x7C7B;&#x95EE;&#x9898;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x7528;MSE&#xFF0C;&#x800C;&#x7528;&#x4EA4;&#x53C9;&#x71B5;&#xFF1F;</h4><hr>
+<ol>
+<li>&#xFF08;&#x6B21;&#x8981;&#x539F;&#x56E0;&#xFF09;&#x903B;&#x8F91;&#x56DE;&#x5F52;&#x914D;&#x5408;MSE&#x635F;&#x5931;&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x91C7;&#x7528;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x8FDB;&#x884C;&#x5B66;&#x4E60;&#x65F6;&#xFF08;&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x65F6;&#xFF09;&#xFF0C;MSE&#x7684;&#x5BFC;&#x6570;&#x4F1A;&#x4EA7;&#x751F;&#x53EF;&#x80FD;&#x56E0;y&#x9884;&#x6D4B;&#xFF08;&#x5373;&#xFF1A;wxi+bi&#xFF09;&#x521D;&#x59CB;&#x65F6;&#x63A5;&#x8FD1;0&#x6216;1&#x800C;&#x5BFC;&#x81F4;&#x7684;&#x5B66;&#x4E60;&#x901F;&#x7387;&#x63A5;&#x8FD1;0&#xFF0C;&#x51E0;&#x4E4E;&#x4E0D;&#x66F4;&#x65B0;&#xFF0C;&#x8BAD;&#x7EC3;&#x5F00;&#x59CB;&#x4F1A;&#x5F88;&#x6162;&#x3002;&#x4EA4;&#x53C9;&#x71B5;&#x5728;&#x63A5;&#x8FD1;1&#x65F6;&#x4F1A;&#x66F4;&#x65B0;&#x6162;&#xFF08;&#x53C2;&#x8003;&#x6700;&#x4E0B;&#x9762;&#x7684;&#x516C;&#x5F0F;&#xFF09;&#xFF0C;&#x540C;&#x65F6;&#x53EF;&#x4EE5;&#x5F88;&#x597D;&#x7684;&#x8861;&#x91CF;&#x6A21;&#x578B;&#xFF0C;&#x5E76;&#x5F88;&#x5BB9;&#x6613;&#x8FDB;&#x884C;&#x6C42;&#x5BFC;&#x3002;</li>
+</ol>
+<p><strong>&#x7F3A;&#x70B9;&#xFF1A;</strong> &#x4EA4;&#x53C9;&#x71B5;&#x91C7;&#x7528;&#x7C7B;&#x95F4;&#x7ADE;&#x4E89;&#x673A;&#x5236;&#xFF0C;&#x53EA;&#x5173;&#x5FC3;&#x5BF9;&#x6B63;&#x786E;&#x6807;&#x7B7E;&#x9884;&#x6D4B;&#x6982;&#x7387;&#x7684;&#x51C6;&#x786E;&#x6027;&#xFF0C;&#x5FFD;&#x7565;&#x975E;&#x6B63;&#x786E;&#x6807;&#x7B7E;&#x7684;&#x5DEE;&#x5F02;&#xFF0C;&#x5BFC;&#x81F4;&#x5B66;&#x5230;&#x7684;&#x7279;&#x5F81;&#x6BD4;&#x8F83;&#x677E;&#x6563;&#x3002;<br><img src="/2020/04/02/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8MSE%EF%BC%8C%E8%80%8C%E7%94%A8%E4%BA%A4%E5%8F%89%E7%86%B5/1.png" alt="7ab0ec9054da0d841c32acf67bd78f7b.png"><br><strong>&#x53C2;&#x8003;&#xFF08;&#x7CBE;&#x534E;&#xFF09;&#xFF1A;</strong><br><a href="https://www.zhihu.com/tardis/sogou/art/35709485" target="_blank" rel="noopener">&#x4EA4;&#x53C9;&#x71B5;&#x635F;&#x5931;&#x51FD;&#x6570;</a><br><a href="https://zhuanlan.zhihu.com/p/35707643" target="_blank" rel="noopener">MSE</a></p>
+<ol start="2">
+<li>&#x5728;&#x5747;&#x65B9;&#x5DEE;+Sigmoid&#x7684;&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x7B97;&#x6CD5;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E00;&#x5C42;&#x5411;&#x524D;&#x9012;&#x63A8;&#x90FD;&#x8981;&#x4E58;&#x4EE5;&#x5B83;&#x7684;&#x5BFC;&#x6570;&#x5F97;&#x5230;&#x68AF;&#x5EA6;&#x53D8;&#x5316;&#x503C;&#x3002;Sigmoid&#x7684;&#x8FD9;&#x4E2A;&#x66F2;&#x7EBF;&#x610F;&#x5473;&#x7740;&#x5728;&#x5927;&#x591A;&#x6570;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x68AF;&#x5EA6;&#x53D8;&#x5316;&#x503C;&#x5F88;&#x5C0F;&#xFF0C;&#x5BFC;&#x81F4;&#x6211;&#x4EEC;&#x7684;W,b&#x66F4;&#x65B0;&#x5230;&#x6781;&#x503C;&#x7684;&#x901F;&#x5EA6;&#x8F83;&#x6162;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x7B97;&#x6CD5;&#x6536;&#x655B;&#x901F;&#x5EA6;&#x8F83;&#x6162;&#x3002;</li>
+</ol>
+<p><strong>&#x4EA4;&#x53C9;&#x71B5;&#xFF1A;</strong><br><img src="/2020/04/02/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8MSE%EF%BC%8C%E8%80%8C%E7%94%A8%E4%BA%A4%E5%8F%89%E7%86%B5/2.png" alt="742d6066fa855226f1d56b5fbcb93a30.png"><br><strong>MSE&#xFF1A;</strong><br><img src="en-resource://database/655:1" alt="5b3d7fb6b98dcee6408e71ea222f5dc8.png"><br><strong>&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x8F93;&#x51FA;&#x5C42;&#x4E2D;&#x524D;&#x8005;&#x6BD4;&#x540E;&#x8005;&#x5C11;&#x4E58;&#x4E86;&#x6FC0;&#x6D3B;&#x51FD;&#x6570;sigmoid&#x7684;&#x5BFC;&#x6570;&#x3002;</strong><br><a href="https://blog.csdn.net/anshuai_aw1/article/details/84666595" target="_blank" rel="noopener">&#x4EA4;&#x53C9;&#x71B5;&#x548C;MSE&#x8BA1;&#x7B97;&#x5BF9;&#x6BD4;</a></p>
+<ol start="3">
+<li>&#x968F;&#x7740;&#x7EDD;&#x5BF9;&#x8BEF;&#x5DEE;&#x7684;&#x589E;&#x5927;&#xFF0C;&#x6743;&#x503C;&#x9700;&#x8981;&#x8C03;&#x6574;&#x7684;&#x5E45;&#x5EA6;&#x5148;&#x53D8;&#x5927;&#x540E;&#x53D8;&#x5C0F;&#xFF0C;&#x8FD9;&#x5C31;&#x5BFC;&#x81F4;&#x5F53;&#x7EDD;&#x5BF9;&#x8BEF;&#x5DEE;&#x5F88;&#x5927;&#x65F6;&#xFF0C;&#x6A21;&#x578B;&#x663E;&#x5F97;&#x201C;&#x81EA;&#x66B4;&#x81EA;&#x5F03;&#x201D;&#x4E0D;&#x80AF;&#x5B66;&#x4E60;&#x3002;&#x968F;&#x7740;&#x7EDD;&#x5BF9;&#x8BEF;&#x5DEE;&#x7684;&#x589E;&#x5927;&#xFF0C;&#x6743;&#x503C;&#x9700;&#x8981;&#x8C03;&#x6574;&#x7684;&#x5E45;&#x5EA6;&#x5148;&#x53D8;&#x5927;&#x540E;&#x53D8;&#x5C0F;&#xFF0C;&#x8FD9;&#x5C31;&#x5BFC;&#x81F4;&#x5F53;&#x7EDD;&#x5BF9;&#x8BEF;&#x5DEE;&#x5F88;&#x5927;&#x65F6;&#xFF0C;&#x6A21;&#x578B;&#x663E;&#x5F97;&#x201C;&#x81EA;&#x66B4;&#x81EA;&#x5F03;&#x201D;&#x4E0D;&#x80AF;&#x5B66;&#x4E60;&#x3002;<br><img src="/2020/04/02/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8MSE%EF%BC%8C%E8%80%8C%E7%94%A8%E4%BA%A4%E5%8F%89%E7%86%B5/3.png" alt="8e345640d86a4f1ebac659022cd589fe.png"><br>MSE&#xFF1A;</li>
+</ol>
+<ul>
+<li>&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x4E2D;&#x5982;&#x679C;&#x9884;&#x6D4B;&#x503C;&#x4E0E;&#x5B9E;&#x9645;&#x503C;&#x7684;&#x8BEF;&#x5DEE;&#x8D8A;&#x5927;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x8BAD;&#x7EC3;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5404;&#x79CD;&#x53C2;&#x6570;&#x8C03;&#x6574;&#x7684;&#x5E45;&#x5EA6;&#x5C31;&#x8981;&#x66F4;&#x5927;&#xFF0C;&#x4ECE;&#x800C;&#x4F7F;&#x8BAD;&#x7EC3;&#x66F4;&#x5FEB;&#x6536;&#x655B;&#xFF0C;&#x5982;&#x679C;&#x9884;&#x6D4B;&#x503C;&#x4E0E;&#x5B9E;&#x9645;&#x503C;&#x7684;&#x8BEF;&#x5DEE;&#x5C0F;&#xFF0C;&#x5404;&#x79CD;&#x53C2;&#x6570;&#x8C03;&#x6574;&#x7684;&#x5E45;&#x5EA6;&#x5C31;&#x8981;&#x5C0F;&#xFF0C;&#x4ECE;&#x800C;&#x51CF;&#x5C11;&#x9707;&#x8361;&#x3002;</li>
+<li>&#x4F7F;&#x7528;&#x5E73;&#x65B9;&#x8BEF;&#x5DEE;&#x635F;&#x5931;&#x51FD;&#x6570;&#xFF0C;&#x8BEF;&#x5DEE;&#x589E;&#x5927;&#x53C2;&#x6570;&#x7684;&#x68AF;&#x5EA6;&#x4F1A;&#x589E;&#x5927;&#xFF0C;&#x4F46;&#x662F;&#x5F53;&#x8BEF;&#x5DEE;&#x5F88;&#x5927;&#x65F6;&#xFF0C;&#x53C2;&#x6570;&#x7684;&#x68AF;&#x5EA6;&#x5C31;&#x4F1A;&#x53C8;&#x51CF;&#x5C0F;&#x4E86;&#x3002;</li>
+<li>&#x4F7F;&#x7528;&#x4EA4;&#x53C9;&#x71B5;&#x635F;&#x5931;&#x662F;&#x51FD;&#x6570;&#xFF0C;&#x8BEF;&#x5DEE;&#x8D8A;&#x5927;&#x53C2;&#x6570;&#x7684;&#x68AF;&#x5EA6;&#x4E5F;&#x8D8A;&#x5927;&#xFF0C;&#x80FD;&#x591F;&#x5FEB;&#x901F;&#x6536;&#x655B;&#x3002;</li>
+</ul>
+<p><strong>&#x5177;&#x4F53;&#x89E3;&#x91CA;&#x53C2;&#x8003;&#xFF08;&#x7CBE;&#x534E;&#xFF09;&#xFF1A;</strong><br><a href="https://blog.csdn.net/liuweiyuxiang/article/details/90707375" target="_blank" rel="noopener">&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;&#x4EA4;&#x53C9;&#x71B5;&#x4E0D;&#x7528;MSE</a><br><img src="/2020/04/02/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8MSE%EF%BC%8C%E8%80%8C%E7%94%A8%E4%BA%A4%E5%8F%89%E7%86%B5/4.png" alt="3630cbe753870e7c6011d3f4b7fffdd7.png"><br><strong>&#x5176;&#x4ED6;&#x53C2;&#x8003;&#xFF1A;</strong><br><a href="https://blog.csdn.net/b876144622/article/details/80958092" target="_blank" rel="noopener">softmax loss&#x63A8;&#x5BFC;</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzIwOTc2MTUyMg==&amp;mid=2247484459&amp;idx=1&amp;sn=768379039ecfb71403b4bdddc5116b86&amp;chksm=976fa1b6a01828a094aa75b4e74291f8e8dd8ef3b7726f1f52eeb4d08b30526e86cf785e63cc&amp;mpshare=1&amp;scene=23&amp;srcid=0331R01pBpBG3uHbxCEPcFKD&amp;sharer_sharetime=1585627895481&amp;sharer_shareid=3412c649d7bafc90aa3c403dd3269844#rd" target="_blank" rel="noopener">&#x4EA4;&#x53C9;&#x71B5;&#x63A8;&#x5BFC;</a></p>
+<p><strong>&#x7B2C;&#x4E8C;&#x70B9;&#x7684;&#x56FE;&#x7247;&#xFF1A;</strong><br><img src="/2020/04/02/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8MSE%EF%BC%8C%E8%80%8C%E7%94%A8%E4%BA%A4%E5%8F%89%E7%86%B5/5.png" alt="4b51cba9fe91f7d42908e5f8a51cfef5.png"><br><img src="/2020/04/02/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8MSE%EF%BC%8C%E8%80%8C%E7%94%A8%E4%BA%A4%E5%8F%89%E7%86%B5/6.png" alt="847b59bd1c031f6dbf21b38d4c4d9750.png"><br><strong>MSE&#x8BEF;&#x5DEE;&#x4E0E;&#x68AF;&#x5EA6;&#x7684;&#x5173;&#x7CFB;&#x662F;&#x4E00;&#x4E2A;&#x4E8C;&#x6B21;&#x51FD;&#x6570;</strong><br><img src="/2020/04/02/%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8MSE%EF%BC%8C%E8%80%8C%E7%94%A8%E4%BA%A4%E5%8F%89%E7%86%B5/7.png" alt="a6288cfcd117a53b3fe3ef2764451099.png"><br><strong>&#x4EA4;&#x53C9;&#x71B5;&#x8BEF;&#x5DEE;&#x4E0E;&#x68AF;&#x5EA6;&#x7684;&#x5173;&#x7CFB;&#x662F;&#x4E00;&#x6B21;&#x7EBF;&#x6027;&#x51FD;&#x6570;</strong></p>
+<blockquote>
+<p>&#x8865;&#x5145;&#xFF1A;&#x5206;&#x7C7B;&#x4EFB;&#x52A1;&#xFF0C;softmax&#x662F;&#x66F4;&#x597D;&#x7684;&#x9009;&#x62E9;&#xFF1B;&#x56DE;&#x5F52;&#x95EE;&#x9898;&#xFF0C;&#x6700;&#x597D;&#x4F7F;&#x7528;sigmoid&#x3002;</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=1384026889.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://music.163.com/song/media/outer/url?id=1341912654.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci='7d6a5a19e87fc16b2000'
+        data-cs='24053baf541ca1615e037a8b6f10e90728e944fd'
+        data-r='windyxh.github.io'
+        data-o='windyxh'
+        data-a='windyxh'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
