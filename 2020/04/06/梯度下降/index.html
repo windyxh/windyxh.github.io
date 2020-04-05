@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>梯度下降 - Xuhui</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="&amp;#x68AF;&amp;#x5EA6;&amp;#x4E0B;&amp;#x964D;
+
+&amp;#x7B97;&amp;#x6CD5;&amp;#x8C03;&amp;#x4F18;
+&amp;#x7B97;&amp;#x6CD5;&amp;#x7684;&amp;#x6B65;,"> 
+    <meta name="author" content="Xuhui"> 
+    <link rel="alternative" href="atom.xml" title="Xuhui" type="application/atom+xml"> 
+    <link rel="icon" href="/img/logo.jpg"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Xuhui</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">梯度下降</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">梯度下降</h1>
+        <div class="stuff">
+            <span>四月 06, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" rel="tag">梯度下降</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h3 id="&#x68AF;&#x5EA6;&#x4E0B;&#x964D;"><a href="#&#x68AF;&#x5EA6;&#x4E0B;&#x964D;" class="headerlink" title="&#x68AF;&#x5EA6;&#x4E0B;&#x964D;"></a>&#x68AF;&#x5EA6;&#x4E0B;&#x964D;</h3><hr>
+<p><img src="/2020/04/06/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/1.png" alt="41cd7ed807dd98e075022a708a96ac68.png"></p>
+<h4 id="&#x7B97;&#x6CD5;&#x8C03;&#x4F18;"><a href="#&#x7B97;&#x6CD5;&#x8C03;&#x4F18;" class="headerlink" title="&#x7B97;&#x6CD5;&#x8C03;&#x4F18;"></a>&#x7B97;&#x6CD5;&#x8C03;&#x4F18;</h4><ol>
+<li>&#x7B97;&#x6CD5;&#x7684;&#x6B65;&#x957F;&#x9009;&#x62E9;&#x3002;&#x6B65;&#x957F;&#x592A;&#x5927;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x8FED;&#x4EE3;&#x8FC7;&#x5FEB;&#xFF0C;&#x751A;&#x81F3;&#x6709;&#x53EF;&#x80FD;&#x9519;&#x8FC7;&#x6700;&#x4F18;&#x89E3;&#x3002;&#x6B65;&#x957F;&#x592A;&#x5C0F;&#xFF0C;&#x8FED;&#x4EE3;&#x901F;&#x5EA6;&#x592A;&#x6162;&#xFF0C;&#x5F88;&#x957F;&#x65F6;&#x95F4;&#x7B97;&#x6CD5;&#x90FD;&#x4E0D;&#x80FD;&#x7ED3;&#x675F;&#x3002;&#x6240;&#x4EE5;&#x7B97;&#x6CD5;&#x7684;&#x6B65;&#x957F;&#x9700;&#x8981;&#x591A;&#x6B21;&#x8FD0;&#x884C;&#x540E;&#x624D;&#x80FD;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x8F83;&#x4E3A;&#x4F18;&#x7684;&#x503C;&#x3002;</li>
+<li>&#x7B97;&#x6CD5;&#x53C2;&#x6570;&#x7684;&#x521D;&#x59CB;&#x503C;&#x9009;&#x62E9;&#x3002;&#x521D;&#x59CB;&#x503C;&#x4E0D;&#x540C;&#xFF0C;&#x83B7;&#x5F97;&#x7684;&#x6700;&#x5C0F;&#x503C;&#x4E5F;&#x6709;&#x53EF;&#x80FD;&#x4E0D;&#x540C;&#xFF0C;&#x56E0;&#x6B64;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6C42;&#x5F97;&#x7684;&#x53EA;&#x662F;&#x5C40;&#x90E8;&#x6700;&#x5C0F;&#x503C;&#xFF1B;&#x5F53;&#x7136;&#x5982;&#x679C;&#x635F;&#x5931;&#x51FD;&#x6570;&#x662F;&#x51F8;&#x51FD;&#x6570;&#x5219;&#x4E00;&#x5B9A;&#x662F;&#x6700;&#x4F18;&#x89E3;&#x3002;&#x7531;&#x4E8E;&#x6709;&#x5C40;&#x90E8;&#x6700;&#x4F18;&#x89E3;&#x7684;&#x98CE;&#x9669;&#xFF0C;&#x9700;&#x8981;&#x591A;&#x6B21;&#x7528;&#x4E0D;&#x540C;&#x521D;&#x59CB;&#x503C;&#x8FD0;&#x884C;&#x7B97;&#x6CD5;&#xFF0C;&#x5173;&#x952E;&#x635F;&#x5931;&#x51FD;&#x6570;&#x7684;&#x6700;&#x5C0F;&#x503C;&#xFF0C;&#x9009;&#x62E9;&#x635F;&#x5931;&#x51FD;&#x6570;&#x6700;&#x5C0F;&#x5316;&#x7684;&#x521D;&#x503C;&#x3002;</li>
+<li>&#x5F52;&#x4E00;&#x5316;&#x3002;&#x7531;&#x4E8E;&#x6837;&#x672C;&#x4E0D;&#x540C;&#x7279;&#x5F81;&#x7684;&#x53D6;&#x503C;&#x8303;&#x56F4;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x8FED;&#x4EE3;&#x5F88;&#x6162;&#xFF0C;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;&#x7279;&#x5F81;&#x53D6;&#x503C;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x53EF;&#x4EE5;&#x5BF9;&#x7279;&#x5F81;&#x6570;&#x636E;&#x5F52;&#x4E00;&#x5316;&#x3002;</li>
+</ol>
+<h4 id="&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x5927;&#x5BB6;&#x65CF;&#xFF08;BGD&#xFF0C;SGD&#xFF0C;MBGD&#xFF09;"><a href="#&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x5927;&#x5BB6;&#x65CF;&#xFF08;BGD&#xFF0C;SGD&#xFF0C;MBGD&#xFF09;" class="headerlink" title="&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x5927;&#x5BB6;&#x65CF;&#xFF08;BGD&#xFF0C;SGD&#xFF0C;MBGD&#xFF09;"></a>&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x5927;&#x5BB6;&#x65CF;&#xFF08;BGD&#xFF0C;SGD&#xFF0C;MBGD&#xFF09;</h4><h5 id="&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;BGD&#xFF09;"><a href="#&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;BGD&#xFF09;" class="headerlink" title="&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;BGD&#xFF09;"></a>&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;BGD&#xFF09;</h5><p>&#x66F4;&#x65B0;&#x53C2;&#x6570;&#x65F6;&#x4F7F;&#x7528;&#x6240;&#x6709;&#x7684;&#x6837;&#x672C;&#x6765;&#x8FDB;&#x884C;&#x66F4;&#x65B0;&#xFF0C;&#x516C;&#x5F0F;&#x5982;&#x56FE;&#xFF08;&#x4F7F;&#x7528;&#x7684;&#x6240;&#x6709;&#x7684;&#x6837;&#x672C;&#x6570;&#x4E3A;m&#xFF09;&#xFF1A;<br><img src="/2020/04/06/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/2.png" alt="5da0492cf75f1e84aa40c8780a38a0b7.png"></p>
+<h5 id="&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;SGD&#xFF09;"><a href="#&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;SGD&#xFF09;" class="headerlink" title="&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;SGD&#xFF09;"></a>&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;SGD&#xFF09;</h5><p>SGD&#x7B97;&#x6CD5;&#x662F;&#x4ECE;&#x6837;&#x672C;&#x4E2D;&#x968F;&#x673A;&#x62BD;&#x51FA;&#x4E00;&#x7EC4;&#xFF0C;&#x8BAD;&#x7EC3;&#x540E;&#x6309;&#x68AF;&#x5EA6;&#x66F4;&#x65B0;&#x4E00;&#x6B21;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x62BD;&#x53D6;&#x4E00;&#x7EC4;&#xFF0C;&#x518D;&#x66F4;&#x65B0;&#x4E00;&#x6B21;&#xFF0C;&#x5728;&#x6837;&#x672C;&#x91CF;&#x53CA;&#x5176;&#x5927;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x53EF;&#x80FD;&#x4E0D;&#x7528;&#x8BAD;&#x7EC3;&#x5B8C;&#x6240;&#x6709;&#x7684;&#x6837;&#x672C;&#x5C31;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x4E00;&#x4E2A;&#x635F;&#x5931;&#x503C;&#x5728;&#x53EF;&#x63A5;&#x53D7;&#x8303;&#x56F4;&#x4E4B;&#x5185;&#x7684;&#x6A21;&#x578B;&#x4E86;&#x3002;&#xFF08;&#x5212;&#x4E2A;&#x91CD;&#x70B9;&#xFF1A;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x4F7F;&#x7528;&#x4E00;&#x7EC4;&#x6837;&#x672C;&#x3002;&#xFF09;</p>
+<blockquote>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x53EB;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7B97;&#x6CD5;&#x5462;&#xFF1F;&#x8FD9;&#x91CC;&#x7684;&#x968F;&#x673A;&#x662F;&#x6307;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6837;&#x672C;&#x90FD;&#x8981;&#x88AB;&#x968F;&#x673A;&#x6253;&#x4E71;&#xFF0C;&#x8FD9;&#x4E2A;&#x4E5F;&#x5F88;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF0C;&#x6253;&#x4E71;&#x662F;&#x6709;&#x6548;&#x51CF;&#x5C0F;&#x6837;&#x672C;&#x4E4B;&#x95F4;&#x9020;&#x6210;&#x7684;&#x53C2;&#x6570;&#x66F4;&#x65B0;&#x62B5;&#x6D88;&#x95EE;&#x9898;&#x3002;</p>
+</blockquote>
+<p>&#x4E0E;BGD&#x533A;&#x522B;&#x5728;&#x4E0E;&#x6C42;&#x68AF;&#x5EA6;&#x65F6;&#x6CA1;&#x6709;&#x7528;&#x6240;&#x6709;&#x7684;m&#x4E2A;&#x6837;&#x672C;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x662F;&#x4EC5;&#x4EC5;&#x9009;&#x53D6;&#x4E00;&#x7EC4;&#x6837;&#x672C;j&#x6765;&#x6C42;&#x68AF;&#x5EA6;&#xFF0C;&#x516C;&#x5F0F;&#x5982;&#x56FE;&#xFF08;&#x53EA;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x6837;&#x672C;j&#xFF09;&#xFF1A;<br><img src="/2020/04/06/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/3.png" alt="cf0586f4febf8a8793439efbba01de22.png"><br>&#x4F18;&#x70B9;</p>
+<ul>
+<li>&#x5BF9;&#x4E8E;&#x8BAD;&#x7EC3;&#x901F;&#x5EA6;&#x6765;&#x8BF4;&#xFF0C;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x7531;&#x4E8E;&#x6BCF;&#x6B21;&#x4EC5;&#x4EC5;&#x91C7;&#x7528;&#x4E00;&#x4E2A;&#x6837;&#x672C;&#x6765;&#x8FED;&#x4EE3;&#xFF0C;&#x8BAD;&#x7EC3;&#x901F;&#x5EA6;&#x5F88;&#x5FEB;&#xFF0C;&#x800C;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x5728;&#x6837;&#x672C;&#x91CF;&#x5F88;&#x5927;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BAD;&#x7EC3;&#x901F;&#x5EA6;&#x4E0D;&#x80FD;&#x8BA9;&#x4EBA;&#x6EE1;&#x610F;&#x3002;</li>
+</ul>
+<p>&#x7F3A;&#x70B9;</p>
+<ul>
+<li>&#x5BF9;&#x4E8E;&#x51C6;&#x786E;&#x5EA6;&#x6765;&#x8BF4;&#xFF0C;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x7528;&#x4E8E;&#x4EC5;&#x4EC5;&#x7528;&#x4E00;&#x4E2A;&#x6837;&#x672C;&#x51B3;&#x5B9A;&#x68AF;&#x5EA6;&#x65B9;&#x5411;&#xFF0C;&#x5BFC;&#x81F4;&#x89E3;&#x5F88;&#x6709;&#x53EF;&#x80FD;&#x4E0D;&#x662F;&#x6700;&#x4F18;&#x3002;</li>
+<li>&#x5BF9;&#x4E8E;&#x6536;&#x655B;&#x901F;&#x5EA6;&#x6765;&#x8BF4;&#xFF0C;&#x7531;&#x4E8E;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x4E00;&#x6B21;&#x8FED;&#x4EE3;&#x4E00;&#x4E2A;&#x6837;&#x672C;&#xFF0C;&#x5BFC;&#x81F4;&#x8FED;&#x4EE3;&#x65B9;&#x5411;&#x53D8;&#x5316;&#x5F88;&#x5927;&#xFF0C;&#x4E0D;&#x80FD;&#x5F88;&#x5FEB;&#x7684;&#x6536;&#x655B;&#x5230;&#x5C40;&#x90E8;&#x6700;&#x4F18;&#x89E3;&#x3002;</li>
+</ul>
+<h5 id="&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;Mini-batch-GD&#xFF09;"><a href="#&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;Mini-batch-GD&#xFF09;" class="headerlink" title="&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;Mini-batch GD&#xFF09;"></a>&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#xFF08;Mini-batch GD&#xFF09;</h5><ul>
+<li>SGD&#x662F;&#x6700;&#x57FA;&#x672C;&#x7684;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#xFF0C;&#x5B83;&#x662F;&#x6307;&#x6BCF;&#x6B21;&#x53C2;&#x6570;&#x66F4;&#x65B0;&#x53EA;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x6837;&#x672C;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x66F4;&#x65B0;&#x8F83;&#x6162;&#xFF1B;</li>
+<li>Batch-SGD&#x662F;&#x6279;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#xFF0C;&#x5B83;&#x662F;&#x6307;&#x6BCF;&#x6B21;&#x53C2;&#x6570;&#x66F4;&#x65B0;&#x4F7F;&#x7528;&#x6240;&#x6709;&#x6837;&#x672C;&#xFF0C;&#x5373;&#x628A;&#x6240;&#x6709;&#x6837;&#x672C;&#x90FD;&#x4EE3;&#x5165;&#x8BA1;&#x7B97;&#x4E00;&#x904D;&#xFF0C;&#x7136;&#x540E;&#x53D6;&#x5B83;&#x4EEC;&#x7684;&#x53C2;&#x6570;&#x66F4;&#x65B0;&#x5747;&#x503C;&#xFF0C;&#x6765;&#x5BF9;&#x53C2;&#x6570;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x6027;&#x66F4;&#x65B0;&#xFF0C;&#x8FD9;&#x79CD;&#x66F4;&#x65B0;&#x65B9;&#x5F0F;&#x8F83;&#x4E3A;&#x7C97;&#x7CD9;&#xFF1B;</li>
+<li>Mini-Batch-SGD&#x662F;&#x5C0F;&#x6279;&#x91CF;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#xFF0C;&#x5B83;&#x662F;&#x6307;&#x6BCF;&#x6B21;&#x53C2;&#x6570;&#x66F4;&#x65B0;&#x4F7F;&#x7528;&#x4E00;&#x5C0F;&#x6279;&#x6837;&#x672C;&#xFF0C;&#x8FD9;&#x6279;&#x6837;&#x672C;&#x7684;&#x6570;&#x91CF;&#x901A;&#x5E38;&#x53EF;&#x4EE5;&#x91C7;&#x53D6;trial-and-error&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x786E;&#x5B9A;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x88AB;&#x8BC1;&#x660E;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x52A0;&#x5FEB;&#x8BAD;&#x7EC3;&#x901F;&#x5EA6;&#x3002;</li>
+</ul>
+<p>&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x662F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x548C;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x7684;&#x6298;&#x4E2D;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5BF9;&#x4E8E;m&#x4E2A;&#x6837;&#x672C;&#xFF0C;&#x6211;&#x4EEC;&#x91C7;&#x7528;x&#x4E2A;&#x6837;&#x5B50;&#x6765;&#x8FED;&#x4EE3;&#xFF0C;1&lt;x&lt;m&#x3002;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x52A0;&#x5FEB;&#x8BAD;&#x7EC3;&#x901F;&#x5EA6;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#xFF1A;<br><a href="https://www.jianshu.com/p/1d5b7057ea41?from=timeline" target="_blank" rel="noopener">SGD&#x521D;&#x63A2;</a><br><a href="https://www.cnblogs.com/pinard/p/5970503.html" target="_blank" rel="noopener">&#x68AF;&#x5EA6;&#x4E0B;&#x964D;</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=1384026889.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://music.163.com/song/media/outer/url?id=1341912654.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci='7d6a5a19e87fc16b2000'
+        data-cs='24053baf541ca1615e037a8b6f10e90728e944fd'
+        data-r='windyxh.github.io'
+        data-o='windyxh'
+        data-a='windyxh'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
